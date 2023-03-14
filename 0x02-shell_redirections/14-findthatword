@@ -1,2 +1,2 @@
 #!/bin/bash
-grep brootb /etc/passwd
+grep w*rootw* /etc/passwd
