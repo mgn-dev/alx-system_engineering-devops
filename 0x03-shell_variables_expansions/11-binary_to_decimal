@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "2i $BINARY p" | dc
+echo -e "ibase=2\n$BINARY" | bc
