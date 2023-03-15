@@ -1,2 +1,2 @@
 #!/bin/bash
-set -a; set -l; set -f | less
+set
