@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1 | nl | grep -E '^\s*[13579]\s+' | cut -f2-
+ls -1 | nl | grep -E '^\s*[13579][13579]*\s+' | cut -f2-
