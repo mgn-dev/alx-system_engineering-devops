@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times with "Hi" on 9.
+
+string="Best School"
+count=10
+
+i=0
+while [ $i -lt $count ]
+do
+    if [ $i == 8 ]; then
+        echo "Hi"
+    else
+        echo "$string"
+    fi
+    i=$((i+1))
+done
