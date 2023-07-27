@@ -8,6 +8,7 @@ i=0
 while [ $i -lt $count ]
 do
     if [ $i == 8 ]; then
+        echo "$string"
         echo "Hi"
     else
         echo "$string"
