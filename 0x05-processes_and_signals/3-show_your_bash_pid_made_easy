@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Bash script that displays the PID, along with the process name.
 
-pgrep -l bash | while read -r pid_process; do
-    pid=$(echo "$pid_process" | awk '{print $1}')
-    process_name=$(echo "$pid_process" | awk '{$1=""; print $0}')
-    echo "$pid $process_name"
+for pid_dir in /proc/[0-9]*/; do
+    pid=$(basename "$pid_dir")
+    process_name=$(tr -d '\0' < "$pid_dir"/comm)
+    if [ $process_name == "bash" ]; then
+        echo "$pid $process_name"
+    fi
 done
