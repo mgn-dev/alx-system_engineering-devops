@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Bash script that displays the PID, along with the process name.
+
+parent_pid=$PPID
+
+echo "$PPID bash"
+echo "$$ bash"
