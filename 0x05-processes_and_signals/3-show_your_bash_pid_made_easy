@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Bash script that displays the PID, along with the process name.
 
-parent_pid=$PPID
+pgrep -l bash | while read -r pid_process; do
 
-echo "$PPID bash"
-echo "$$ bash"
+  pid=$(echo "$pid_process" | awk '{print $1}')
+  process_name=$(echo "$pid_process" | awk '{$1=""; print $0}')
+  echo "$pid $process_name"
+done
