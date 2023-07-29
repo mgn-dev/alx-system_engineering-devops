@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # Bash script that stops 4-to_infinity_and_beyond process.
 
-pid=$(pgrep bash)
-
-for p in $pid; do
-    if [ "$p" != "$$" ]; then
-        kill "$p"
+for pid_dir in /proc/[0-9]*/; do
+    pid=$(basename "$pid_dir")
+    if [ -e "$pid_dir/comm" ]; then
+        process_name=$(tr -d '\0' < "$pid_dir"/comm)
+        if [ "$process_name" == "bash" ] && [ "$pid" != "$$" ]; then
+            kill "$pid"
+        fi
     fi
 done
