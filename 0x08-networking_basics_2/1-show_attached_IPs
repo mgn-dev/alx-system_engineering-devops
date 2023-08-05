@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Bash script that displays all active IPv4 IPs on the machine it’s executed on.
 
-ip -4 address show | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+ifconfig | grep -oE 'inet (addr:)?([0-9]{1,3}\.){3}[0-9]{1,3}' | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}'
