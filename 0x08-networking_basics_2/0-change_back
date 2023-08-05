@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# reverts the system files that were messed with.
+
+hst="/etc/hosts"
+backup=$hst"_backup"
+
+sudo cp -f "$backup" "$hst" && sudo rm "$backup"
