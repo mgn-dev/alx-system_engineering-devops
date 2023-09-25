@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-# Bash script that displays all active IPv4 IPs on the machine it’s executed on.
-
-str=$(hostname -I)
-trm=$(echo "$str" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-echo "$trm"
-echo "127.0.0.1"
