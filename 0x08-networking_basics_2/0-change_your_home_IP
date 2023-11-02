@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Bash script that configures an Ubuntu server with the below requirements.
+# localhost resolves to 127.0.0.2
+# facebook.com resolves to 8.8.8.8
+
+hst="/etc/hosts"
+backup=$hst"_backup"
+cpy=$hst"_copy"
+lhost=""
+fb=""
+
+sudo cp "$hst" "$backup"
+sudo cp "$hst" "$cpy"
+
+lhost=$(grep -oP '([0-9]{1,3}[.]){3}([0-9]{1,3})\s*localhost' "$hst")
+fb=$(grep -oP '([0-9]{1,3}[.]){3}([0-9]{1,3})\s*facebook.com' "$hst")
+
+if [ "$lhost" == "" ]; then
+    echo -e "127.0.0.2\tlocalhost" >> "$cpy"
+else
+    sed -E 's/([0-9]{1,3}[.]){3}([0-9]{1,3})\s*localhost/127.0.0.2\tlocalhost/' "$cpy" > temp && sudo mv temp "$cpy"
+fi
+
+if [ "$fb" == "" ]; then
+    echo -e "8.8.8.8\tfacebook.com" >> "$cpy"
+else
+    sed -E 's/([0-9]{1,3}[.]){3}([0-9]{1,3})\s*facebook.com/8.8.8.8\tfacebook.com/' "$cpy" > temp && sudo mv temp "$cpy"
+fi
+
+sudo cp -f "$cpy" "$hst"
+sudo rm "$cpy"
