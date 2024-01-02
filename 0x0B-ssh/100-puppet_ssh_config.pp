@@ -1,17 +1,20 @@
 # set up your client SSH configuration file so that you 
 # can connect to a server without typing a password.
 
-augeas { 'ssh_config':
-  context => '/etc/ssh/ssh_config',
-  changes => [
-    'set PasswordAuthentication no',
-    'set IdentityFile ~/.ssh/school',
-  ],
-  notify  => Service['ssh'], # Restart SSH service after making changes
+file_line { 'Turn off passwd auth':
+  path  => '/etc/ssh/sshd_config',
+  line  => 'PasswordAuthentication no',
+  match => '^#?PasswordAuthentication.*',
 }
 
-service { 'ssh':
+file_line { 'Declare identity file':
+  path  => '/etc/ssh/sshd_config',
+  line  => 'PermitRootLogin without-password',
+  match => '^#?PermitRootLogin.*',
+}
+
+service { 'sshd':
   ensure    => 'running',
   enable    => true,
-  subscribe => Augeas['ssh_config'], # Restart service when config changes  
+  subscribe => File_line['Turn off passwd auth', 'Declare identity file'],
 }
