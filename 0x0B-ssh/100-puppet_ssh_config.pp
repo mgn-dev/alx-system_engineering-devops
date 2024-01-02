@@ -2,18 +2,18 @@
 # can connect to a server without typing a password.
 
 file_line { 'Turn off passwd auth':
-  path  => '/etc/ssh/sshd_config',
+  path  => '/etc/ssh/ssh_config',
   line  => 'PasswordAuthentication no',
   match => '^#?PasswordAuthentication.*',
 }
 
 file_line { 'Declare identity file':
-  path  => '/etc/ssh/sshd_config',
-  line  => 'PermitRootLogin without-password',
-  match => '^#?PermitRootLogin.*',
+  path  => '/etc/ssh/ssh_config',
+  line  => 'IdentityFile ~/.ssh/school',
+  match => '^#?IdentityFile.*',
 }
 
-service { 'sshd':
+service { 'ssh':
   ensure    => 'running',
   enable    => true,
   subscribe => File_line['Turn off passwd auth', 'Declare identity file'],
