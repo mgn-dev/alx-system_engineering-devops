@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# a script that configures NGINX on ubuntu server
+
+# update package manager and install nginx
+sudo apt-get -y update
+sudo apt-get install -y nginx
+
+# allow directory ownership for the current user
+sudo chown -R "$USER":"$USER" /var/www/html
+
+# creating new index.html file
+echo -e "Hello World!" > /var/www/html/index.html
+
+# restarting nginx
+sudo service nginx restart
