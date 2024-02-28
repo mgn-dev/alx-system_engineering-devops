@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# a script that configures NGINX on ubuntu server
+
+# update package manager and install nginx
+sudo apt-get -y update
+sudo apt-get install -y nginx
+
+# allow directory ownership for the current user
+sudo chown -R "$USER":"$USER" /var/www/html
+
+# creating new index.html file
+echo -e "Hello World!" > /var/www/html/index.html
+
+# Define the default redirect URL
+REDIRECT_URL="https://www.youtube.com/watch?v=QH2-TGUlwu4"
+
+# Create a new nginx configuration file for the redirection
+CONFIG_FILE="/etc/nginx/conf.d/redirect_me.conf"
+
+echo "server {
+    listen 80;
+    server_name localhost;
+
+    location /redirect_me {
+        return 301 $REDIRECT_URL;
+    }
+
+    # Other server configurations...
+}" | sudo tee $CONFIG_FILE > /dev/null
+
+# reload nginx
+sudo service reload nginx
