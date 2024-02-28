@@ -2,15 +2,14 @@
 #a script that configures redirect on NGINX on ubuntu server
 
 # update package manager and install nginx
-sudo apt-get -y update
-sudo apt-get install -y nginx
+# sudo apt-get -y update
+# sudo apt-get install -y nginx
 
-# allow directory ownership for the current user
-sudo chown -R "$USER":"$USER" /var/www/html
+# # allow directory ownership for the current user
+# sudo chown -R "$USER":"$USER" /var/www/html
 
 # creating new index.html file
 echo -e "Hello World!" > /var/www/html/index.html
-
 
 # Define the redirect URL
 REDIRECT_URL="https://www.youtube.com/watch?v=QH2-TGUlwu4"
