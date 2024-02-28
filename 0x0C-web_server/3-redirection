@@ -11,22 +11,16 @@ sudo chown -R "$USER":"$USER" /var/www/html
 # creating new index.html file
 echo -e "Hello World!" > /var/www/html/index.html
 
-# Define the default redirect URL
+# Define the redirect URL
 REDIRECT_URL="https://www.youtube.com/watch?v=QH2-TGUlwu4"
 
-# Create a new nginx configuration file for the redirection
-CONFIG_FILE="/etc/nginx/conf.d/redirect_me.conf"
+# Define the nginx configuration file and the rewrite rule
+NGINX_CONFIG_FILE="/etc/nginx/sites-available/default"
+REWRITE_RULE="rewrite ^/redirect_me $REDIRECT_URL permanent;"
+LINE_NUMBER="24"
 
-echo "server {
-    listen 80;
-    server_name localhost;
-
-    location /redirect_me {
-        return 301 $REDIRECT_URL;
-    }
-
-    # Other server configurations...
-}" | sudo tee $CONFIG_FILE > /dev/null
+# insert the rewrite directive using sed
+sudo sed -i $LINE_NUMBER"i\\$REWRITE_RULE" $NGINX_CONFIG_FILE
 
 # reload nginx
 sudo service reload nginx
