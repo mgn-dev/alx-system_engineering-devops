@@ -69,6 +69,6 @@ service { 'nginx':
 }
 
 exec { 'restart_nginx':
-  command     => '/bin/systemctl restart nginx',
+  command     => 'sudo service nginx restart',
   refreshonly => true,
 }
