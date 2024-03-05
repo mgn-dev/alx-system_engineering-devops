@@ -24,12 +24,14 @@ file { '/etc/nginx':
 file { '/var/www/html/index.html':
   ensure  => file,
   content => "Hello World!\n",
+  require => File['/var/www/html']
 }
 
 # Create error_404.html file
 file { '/var/www/html/error_404.html':
   ensure  => file,
   content => "Ceci n'est pas une page\n",
+  require => File['/var/www/html']
 }
 
 # Add new location directive
