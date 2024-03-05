@@ -1,24 +1,24 @@
 # Puppet manifest to configure NGINX redirect on Ubuntu server
 
 exec { 'update system':
-        command => '/usr/bin/apt-get update',
+    command => '/usr/bin/apt-get update',
 }
 
 package { 'nginx':
-	ensure => 'installed',
-	require => Exec['update system']
+    ensure  => 'installed',
+    require => Exec['update system']
 }
 
 file {'/var/www/html/index.html':
-	content => 'Hello World!'
+    content => 'Hello World!'
 }
 
-exec {'add header':
-	command => 'sed -i "25i\	add_header X-Served-By \$hostname;" /etc/nginx/sites-available/default',
-	provider => 'shell'
+exec {'header':
+    command  => 'sed -i "25i\	add_header X-Served-By \$hostname;" /etc/nginx/sites-available/default',
+    provider => 'shell'
 }
 
 service {'nginx':
-	ensure => running,
-	require => Package['nginx']
+    ensure  => running,
+    require => Package['nginx']
 }
