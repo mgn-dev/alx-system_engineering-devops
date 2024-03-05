@@ -13,7 +13,7 @@ file {'/var/www/html/index.html':
     content => 'Hello World!'
 }
 
-exec {'header':
+exec {'HTTP header':
     command  => 'sed -i "25i\	add_header X-Served-By \$hostname;" /etc/nginx/sites-available/default',
     provider => 'shell'
 }
