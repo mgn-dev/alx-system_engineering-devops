@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Define a function to update nginx configuration
+chmod 644 /etc/nginx/nginx.conf
+sed -iE 's/\s*#?\s*user .*/user nginx;/' /etc/nginx/nginx.conf
+sed -iE 's/(listen (\[::\]:)?80) /\180 /' /etc/nginx/sites-enabled/default
+pkill apache2
+su nginx -s /bin/bash -c 'service nginx restart'
