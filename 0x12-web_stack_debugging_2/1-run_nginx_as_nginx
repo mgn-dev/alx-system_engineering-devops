@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Define a function to update nginx configuration
 config_file="/etc/nginx/nginx.conf"
