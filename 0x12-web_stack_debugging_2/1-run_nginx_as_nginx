@@ -4,20 +4,8 @@
 config_file="/etc/nginx/nginx.conf"
 default_file="/etc/nginx/sites-enabled/default"
 
-# Change permissions
-chmod 644 "$config_file"
-
-# Update user
-awk '/\s*#?\s*user .*/{print "user nginx;"; next} 1' "$config_file" > temp && mv temp "$config_file"
-
-# Update listen directive
-awk '/(listen (\[::\]:)?80) /{print "listen 80;"; next} 1' "$default_file" > temp && mv temp "$default_file"
-
-# Stop apache2 service
-systemctl stop apache2
-
-# Update nginx configuration
-update_nginx_config
-
-# Restart nginx service as user nginx
-sudo -c 'systemctl restart nginx' nginx
+chmod a+x "$config_file"
+sed -iE 's/\s*#?\s*user .*/user nginx;/' "$config_file"
+sed -iE 's/(listen (\[::\]:)?80) /\180 /' "$default_file"
+pkill apache2
+su nginx -s /bin/bash -c 'service nginx restart'
