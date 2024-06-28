@@ -1,6 +1,7 @@
 # puppet resources that install flask from pip3
 
-exec { 'install_flask':
-  command => 'pip3 install flask==2.1.0',
-  path    => ['/bin', '/usr/bin'],
-}
+exec { 'install python packages':
+     command   => 'pip3 install flask flask_restful apiai',
+     path => ['/usr/bin/'],
+     unless  => '/usr/bin/test -f /usr/local/lib/python3.4/dist-packages/flask/app.py'
+  }
