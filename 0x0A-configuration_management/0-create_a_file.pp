@@ -1,4 +1,4 @@
-# a puppet resource that creates a 'school' file in /tmp.
+# a puppet resource that creates a 'school' file in /tmp
 
 file { '/tmp/school':
   mode    => '0744',
