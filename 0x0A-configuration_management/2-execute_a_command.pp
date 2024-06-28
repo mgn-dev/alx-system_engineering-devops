@@ -1,7 +1,7 @@
 # a puppet resource that executes a command.
 
-exec { 'kill_killmenow_process':
-  command     => 'pkill killmenow',
-  refreshonly => true,
-  onlyif      => 'pgrep killmenow',
+exec { 'kill_killmenow':
+  command => '/usr/bin/pkill killmenow',
+  path    => ['/bin', '/usr/bin'],
+  onlyif  => 'pgrep killmenow',
 }
