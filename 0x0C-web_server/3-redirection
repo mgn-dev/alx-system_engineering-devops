@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#a script that configures redirect on NGINX on ubuntu server
+
+# update package manager and install nginx
+sudo apt-get -y update
+sudo apt-get install -y nginx
+
+# allow directory ownership for the current user
+sudo chown -R "$USER":"$USER" /var/www/html
+
+# creating new index.html file
+echo -e "Hello World!" > /var/www/html/index.html
+
+# define the redirect URL
+REDIRECT_URL="https://www.youtube.com/watch?v=QH2-TGUlwu4"
+
+# define config file
+NGINX_CONFIG_FILE="/etc/nginx/sites-available/default"
+
+# define the Nginx configuration file, rewrite rule, and line number
+REDIRECT_RULE="\tlocation /redirect { return 301 $REDIRECT_URL; }"
+LINE_NUMBER_1="53"
+
+# insert the redirect directive using sed
+sudo sed -i "${LINE_NUMBER_1}i\\$REDIRECT_RULE" $NGINX_CONFIG_FILE
+
+# reload nginx
+sudo service nginx restart
