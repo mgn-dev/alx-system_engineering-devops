@@ -14,7 +14,7 @@ file {'/var/www/html/index.html':
 }
 
 exec { 'redirect_me':
-  command  => "sudo sed -i '53i\\tlocation /redirect { return 301 \$REDIRECT_URL; }' /etc/nginx/sites-available/default",
+  command  => "sudo sed -i '53i\\tlocation /redirect_me { return 301 \$REDIRECT_URL; }' /etc/nginx/sites-available/default",
   provider => 'shell',
   before   => Exec['restart'],
 }
