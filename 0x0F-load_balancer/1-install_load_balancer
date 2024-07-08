@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# a script that configures HAProxy on ubuntu server
+
+# update package manager and install haproxy
+sudo apt-get -y update
+sudo apt-get install -y haproxy
+
+# allow directory ownership for the current user
+sudo chown -R "$USER":"$USER" /etc/haproxy/
+
+# make sure init script has executable permissions
+sudo chmod +x /etc/init.d/haproxy
+
+# configure load balancer
+config_1="\nfrontend lb_frontend
+    bind *:80
+    default_backend lb_backend"
+
+hap_dir=/etc/haproxy/haproxy.cfg
+
+if ! grep -q "$config_1" "$hap_dir"; then
+    echo -e "$config_1" >> "$hap_dir"
+fi
+
+server_1=54.160.110.197:80
+server_2=100.26.227.7:80
+
+config_2="\nbackend lb_backend
+    balance roundrobin
+    server web-01 $server_1 check
+    server web-02 $server_2 check"
+
+if ! grep -q "$config_2" "$hap_dir"; then
+    echo -e "$config_2" >> "$hap_dir"
+fi
+
+# ensure HAProxy starts automatically on system boot
+sudo systemctl enable haproxy
+
+# restart haproxy after configuration
+sudo service haproxy restart
