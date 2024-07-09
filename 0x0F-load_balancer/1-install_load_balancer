@@ -22,8 +22,8 @@ if ! grep -q "$config_1" "$hap_dir"; then
     echo -e "$config_1" >> "$hap_dir"
 fi
 
-server_1=54.160.110.197:80
-server_2=100.26.227.7:80
+server_1=54.160.66.157:80
+server_2=54.160.82.68:80
 
 config_2="\nbackend lb_backend
     balance roundrobin
