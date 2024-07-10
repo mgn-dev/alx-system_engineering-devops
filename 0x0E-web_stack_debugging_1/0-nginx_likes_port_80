@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Function to check if nginx is installed
+is_nginx_installed() {
+    dpkg -l | grep -qw nginx
+}
+
+# Function to check if apache2 is installed
+is_apache_installed() {
+    dpkg -l | grep -qw apache2
+}
+
+# Function to install nginx
+install_nginx() {
+    sudo apt update
+    sudo apt install -y nginx &&
+    sudo service nginx restart
+}
+
+# Function to remove apache2
+remove_apache2() {
+    sudo service apache2 stop
+    sudo apt-get remove --purge -y apache2 apache2-utils apache2-bin apache2.2-common
+    sudo rm -rf /etc/apache2
+    sudo rm -rf /var/www/html
+}
+
+# Main script execution
+if is_apache_installed; then
+    remove_apache2
+fi
+
+if ! is_nginx_installed; then
+    install_nginx
+fi
