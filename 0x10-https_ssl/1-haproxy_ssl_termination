@@ -40,4 +40,5 @@ frontend lb_frontend
 
 backend lb_backend
         balance roundrobin
-        server web-01 54.160.110.197:80 check
+        server web-01 54.160.66.157:80 check
+        server web-02 52.91.122.254:80 check
