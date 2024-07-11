@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# Script that fixes nginx configuration on server
 # Function to check if nginx is installed
 is_nginx_installed() {
     dpkg -l | grep -qw nginx
@@ -14,7 +14,6 @@ is_apache_installed() {
 install_nginx() {
     sudo apt update
     sudo apt install -y nginx &&
-    sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default &&
     sudo service nginx restart
 }
 
