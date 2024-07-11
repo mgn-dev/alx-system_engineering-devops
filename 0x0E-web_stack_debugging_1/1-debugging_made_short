@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Script the fixes nginx config
+apt-get remove -y apache2
+dpkg -l | grep -qw nginx || apt-get install -y nginx
+echo "" | sudo dd status=none of=/run/nginx.pid
