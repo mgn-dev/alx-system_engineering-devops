@@ -22,8 +22,8 @@ if ! grep -q "$config_1" "$hap_dir"; then
     echo -e "$config_1" >> "$hap_dir"
 fi
 
-server_1=54.160.66.157:80
-server_2=54.160.82.68:80
+server_1=100.26.238.9:80
+server_2=52.91.122.254:80
 
 config_2="\nbackend lb_backend
     balance roundrobin
@@ -35,7 +35,7 @@ if ! grep -q "$config_2" "$hap_dir"; then
 fi
 
 # ensure HAProxy starts automatically on system boot
-sudo systemctl enable haproxy
+sudo service haproxy enable
 
 # restart haproxy after configuration
 sudo service haproxy restart
