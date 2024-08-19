@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-import requests
 """
 module that implements a function that returns
 number of subscribers.
 """
+import requests
 
 
 def number_of_subscribers(subreddit):
