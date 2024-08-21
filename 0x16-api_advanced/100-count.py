@@ -3,9 +3,9 @@
 module that implements a function that parses the title of
 all hot articles, and prints a sorted count of given keywords.
 """
-import requests
 from collections import Counter
 import re
+import requests
 
 
 def count_words(subreddit, word_list, after=None, counts=None):
